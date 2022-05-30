@@ -1,30 +1,38 @@
+const formatStyles = function (styles) {
+  const stylesList = Object.entries(styles);
+  return stylesList.map(([property, value]) =>
+    `${property}:${value}`).join(';');
+};
+
 class Tag {
   constructor(tag) {
     this.tag = tag;
-    this.attributes = [];
+    this.styles = {};
+    this.content = '';
   }
 
-  addStyle(style) {
-    this.attributes.push(style);
+  addStyle(property, value) {
+    this.styles[property] = value;
   }
 
-  createTag() {
-    const style = this.appendStyles();
-    return `<${this.tag} style="${style}"></${this.tag}>`;
+  addStyles(styles) {
+    this.styles = { ...this.styles, ...styles };
   }
 
-  appendStyles() {
-    return this.attributes.map(
-      ({ attribute, value }) => `${attribute}:${value}`).join(';');
+  toHTML() {
+    return `<${this.tag} style="${formatStyles(this.styles)}">${this.content}</${this.tag}>`;
   }
 
-  removeStyle(attributeToRemove) {
-    for (let index = 0; index < this.attributes.length; index++) {
-      const { attribute } = this.attributes[index];
-      if (attribute === attributeToRemove) {
-        return this.attributes.splice(index, 1);
-      }
-    }
+  removeStyle(property) {
+    delete this.styles[property];
+  }
+
+  editStyle(property, newValue) {
+    this.styles[property] = newValue;
+  }
+
+  addContent(content) {
+    this.content += content;
   }
 }
 

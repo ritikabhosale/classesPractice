@@ -28,15 +28,17 @@ class Square {
     this.color = color;
   }
 
-  createHtml() {
+  toHTML() {
     const div = new Tag('div');
-    div.addStyle({ attribute: 'background-color', value: this.color });
-    div.addStyle({ attribute: 'height', value: `${this.height}px` });
-    div.addStyle({ attribute: 'width', value: `${this.height}px` });
-    div.addStyle({ attribute: 'top', value: `${this.points.x}px` });
-    div.addStyle({ attribute: 'left', value: `${this.points.y}px` });
-    div.addStyle({ attribute: 'position', value: 'absolute' });
-    return div.createTag();
+    div.addStyles({
+      'background-color': this.color,
+      'height': `${this.height}px`,
+      'width': `${this.height}px`,
+      'top': `${this.points.x}px`,
+      'left': `${this.points.y}px`,
+      'position': 'absolute'
+    });
+    return div.toHTML();
   }
 }
 
@@ -51,7 +53,7 @@ const colorfulSquares = ({ hue, saturation }, { x, y }) => {
     const height = 10;
     const color = getShade(hsl);
     const points = { x: randomInt(x), y: randomInt(y) };
-    return new Square(points, height, color).createHtml();
+    return new Square(points, height, color).toHTML();
   }).join('');
 };
 
