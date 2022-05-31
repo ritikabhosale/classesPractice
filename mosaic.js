@@ -1,4 +1,6 @@
-const Tag = require('./styles.js').Tag;
+const { Style } = require('./html/src/style.js');
+const { Tag } = require('./html/src/tag.js');
+const { Attribute } = require('./html/src/attribute.js');
 
 const randomInt = limit => Math.floor(Math.random() * limit);
 
@@ -30,7 +32,8 @@ class Square {
 
   toHTML() {
     const div = new Tag('div');
-    div.addStyles({
+    const styles = new Style();
+    styles.addStyles({
       'background-color': this.color,
       'height': `${this.height}px`,
       'width': `${this.height}px`,
@@ -38,7 +41,9 @@ class Square {
       'left': `${this.points.y}px`,
       'position': 'absolute'
     });
-    return div.toHTML();
+    const style = new Attribute('style', styles);
+    div.addAttr(style);
+    return div.toString();
   }
 }
 
@@ -49,7 +54,7 @@ const getShade = hsl => {
 
 const colorfulSquares = ({ hue, saturation }, { x, y }, blockWidth) => {
   const hsl = new HSL(hue, saturation);
-  return Array(2000).fill(1).map(() => {
+  return Array(1000).fill(1).map(() => {
     const height = 10;
     const color = getShade(hsl);
     const points = { x: randomInt(x), y: randomIntBetween(y, y + blockWidth) };

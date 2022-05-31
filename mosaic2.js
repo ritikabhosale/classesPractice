@@ -1,4 +1,6 @@
-const Tag = require('./styles.js').Tag;
+const { Style } = require('./html/src/style.js');
+const { Tag } = require('./html/src/tag.js');
+const { Attribute } = require('./html/src/attribute.js');
 
 const randomInt = limit => Math.floor(Math.random() * limit);
 
@@ -30,7 +32,8 @@ class Square {
 
   toHTML() {
     const div = new Tag('div');
-    div.addStyles({
+    const styles = new Style();
+    styles.addStyles({
       'background-color': this.color,
       'height': `${this.height}px`,
       'width': `${this.height}px`,
@@ -38,7 +41,9 @@ class Square {
       'left': `${this.points.y}px`,
       'position': 'absolute'
     });
-    return div.toHTML();
+    const style = new Attribute('style', styles);
+    div.addAttr(style);
+    return div.toString();
   }
 }
 
