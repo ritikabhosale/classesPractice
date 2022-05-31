@@ -1,27 +1,12 @@
 const { Style } = require('./html/src/style.js');
 const { Tag } = require('./html/src/tag.js');
 const { Attribute } = require('./html/src/attribute.js');
+const { HSL } = require("./hsl.js");
 
 const randomInt = limit => Math.floor(Math.random() * limit);
 
 const randomIntBetween = (min, max) =>
   Math.floor(Math.random() * (max - min + 1) + min);
-
-class HSL {
-  constructor(hue, saturation, lightness) {
-    this.hue = hue;
-    this.saturation = saturation;
-    this.lightness = lightness;
-  }
-
-  resetLight(lightness) {
-    this.lightness = lightness;
-  }
-
-  inhsl() {
-    return `hsl(${this.hue},${this.saturation}%,${this.lightness}%)`;
-  }
-}
 
 class Square {
   constructor(points, height, color) {
