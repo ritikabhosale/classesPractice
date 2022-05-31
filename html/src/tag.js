@@ -1,6 +1,3 @@
-const { Style } = require('./style.js');
-const { Attribute } = require('./attribute.js');
-
 class Tag {
   constructor(tagName) {
     this.tagName = tagName;
